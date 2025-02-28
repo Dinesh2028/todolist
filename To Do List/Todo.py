@@ -17,41 +17,41 @@ def create_table():
 def add_task(title):
     cursor.execute("INSERT INTO tasks (title) VALUES (?)", (title,))
     conn.commit()
-    print("✅ Task added successfully!")
+    print("Task added successfully!")
 
 def view_tasks():
     cursor.execute("SELECT * FROM tasks")
     tasks = cursor.fetchall()
     if tasks:
-        print("\n📋 To-Do List:")
+        print("\nTo-Do List:")
         for task in tasks:
             print(f"ID: {task[0]}, Title: {task[1]}, Status: {task[2]}")
     else:
-        print("📭 No tasks found!")
+        print("No tasks found!")
 
 def update_task(task_id, new_title):
     cursor.execute("UPDATE tasks SET title=? WHERE id=?", (new_title, task_id))
     conn.commit()
     if cursor.rowcount > 0:
-        print("✅ Task updated successfully!")
+        print("Task updated successfully!")
     else:
-        print("❌ Task not found!")
+        print("Task not found!")
 
 def mark_completed(task_id):
     cursor.execute("UPDATE tasks SET status='Completed' WHERE id=?", (task_id,))
     conn.commit()
     if cursor.rowcount > 0:
-        print("✅ Task marked as completed!")
+        print("Task marked as completed!")
     else:
-        print("❌ Task not found!")
+        print("Task not found!")
 
 def delete_task(task_id):
     cursor.execute("DELETE FROM tasks WHERE id=?", (task_id,))
     conn.commit()
     if cursor.rowcount > 0:
-        print("✅ Task deleted successfully!")
+        print("Task deleted successfully!")
     else:
-        print("❌ Task not found!")
+        print("Task not found!")
 
 if __name__ == "__main__":
     create_table()
@@ -77,22 +77,22 @@ if __name__ == "__main__":
                 new_title = input("Enter new title: ")
                 update_task(task_id, new_title)
             except ValueError:
-                print("❌ Invalid input! Task ID must be a number.")
+                print("Invalid input! Task ID must be a number.")
         elif choice == "4":
             try:
                 task_id = int(input("Enter task ID to mark as completed: "))
                 mark_completed(task_id)
             except ValueError:
-                print("❌ Invalid input! Task ID must be a number.")
+                print("Invalid input! Task ID must be a number.")
         elif choice == "5":
             try:
                 task_id = int(input("Enter task ID to delete: "))
                 delete_task(task_id)
             except ValueError:
-                print("❌ Invalid input! Task ID must be a number.")
+                print("Invalid input! Task ID must be a number.")
         elif choice == "6":
-            print("👋 Exiting...")
+            print("Exiting...")
             conn.close()
             break
         else:
-            print("❌ Invalid choice! Try again.")
+            print("Invalid choice! Try again.")
